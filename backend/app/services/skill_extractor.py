@@ -213,7 +213,6 @@ class SkillExtractor:
                         source, canonical, alias, level.value, years,
                     )
 
-
         try:
             doc = self.nlp(text[:5000])
             for ent in doc.ents:
@@ -235,14 +234,31 @@ class SkillExtractor:
         logger.info("Extraction complete for {} — {} unique skills found", source, len(skills))
         return skills
 
+    def _get_sentence_window(self, text_lower: str, match_pos: int, radius: int) -> str:
+        """Gets the surrounding text bounded by sentence endings or a maximum radius."""
+        start = max(0, match_pos - radius)
+        end = min(len(text_lower), match_pos + radius)
+        
+        # Find nearest preceding sentence boundary (period or newline)
+        sent_start = max(text_lower.rfind('.', start, match_pos), text_lower.rfind('\n', start, match_pos))
+        if sent_start != -1:
+            start = sent_start + 1
+            
+        # Find nearest succeeding sentence boundary
+        end_period = text_lower.find('.', match_pos, end)
+        end_newline = text_lower.find('\n', match_pos, end)
+        
+        ends = [e for e in (end_period, end_newline) if e != -1]
+        if ends:
+            end = min(ends)
+            
+        return text_lower[start:end]
+
     def _infer_level(
         self, text_lower: str, canonical: str, matched_alias: str, match_pos: int
     ) -> SkillLevel:
-        """Infer proficiency level from surrounding context."""
-
-        window_start = max(0, match_pos - 150)
-        window_end = min(len(text_lower), match_pos + 150)
-        window = text_lower[window_start:window_end]
+        """Infer proficiency level from surrounding context bounded by the sentence."""
+        window = self._get_sentence_window(text_lower, match_pos, radius=150)
 
         for level in [SkillLevel.EXPERT, SkillLevel.ADVANCED, SkillLevel.INTERMEDIATE, SkillLevel.BEGINNER]:
             for keyword in LEVEL_KEYWORDS[level]:
@@ -252,10 +268,8 @@ class SkillExtractor:
         return SkillLevel.INTERMEDIATE
 
     def _infer_years(self, text_lower: str, match_pos: int) -> Optional[float]:
-        """Try to extract years of experience from nearby text."""
-        window_start = max(0, match_pos - 200)
-        window_end = min(len(text_lower), match_pos + 200)
-        window = text_lower[window_start:window_end]
+        """Try to extract years of experience from nearby text bounded by the sentence."""
+        window = self._get_sentence_window(text_lower, match_pos, radius=200)
 
         patterns = [
             r'(\d+)\+?\s*(?:years?|yrs?)\s*(?:of\s*)?(?:experience|exp)?',

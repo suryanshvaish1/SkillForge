@@ -1,3 +1,7 @@
+
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+# API Framework
 fastapi==0.104.1
 uvicorn[standard]==0.24.0
 python-multipart==0.0.6
@@ -11,7 +15,12 @@ PyPDF2==3.0.1
 python-docx==1.1.0
 pdfplumber==0.10.3
 
-# NLP & ML
+# Core ML Libraries (Explicitly defining these so pip uses the CPU URL above)
+torch
+torchvision
+torchaudio
+
+# NLP & Data Math
 spacy==3.7.2
 scikit-learn==1.3.2
 sentence-transformers==2.2.2
