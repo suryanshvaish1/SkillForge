@@ -6,8 +6,6 @@ from typing import Optional
 from pydantic import BaseModel, Field
 
 
-
-
 class Difficulty(str, Enum):
     BEGINNER = "beginner"
     INTERMEDIATE = "intermediate"
@@ -35,7 +33,7 @@ class ExtractedSkill(BaseModel):
     name: str
     level: SkillLevel = SkillLevel.NONE
     years_experience: Optional[float] = None
-    context: Optional[str] = None  # Where this skill was mentioned
+    context: Optional[str] = None 
 
 
 class SkillGap(BaseModel):
@@ -70,7 +68,6 @@ class PathwayPhase(BaseModel):
     skills_addressed: list[str]
 
 
-
 class ReasoningStep(BaseModel):
     step: int
     action: str
@@ -78,7 +75,16 @@ class ReasoningStep(BaseModel):
     data: Optional[dict] = None
 
 
-# API payloads
+class PathwaySummary(BaseModel):
+    total_courses: int
+    total_hours: int
+    estimated_weeks: float
+    phases: int
+    top_gaps: list[str]
+    skills_already_met: list[str]
+    domain_coverage: dict[str, int] 
+
+
 
 class AnalysisRequest(BaseModel):
     resume_text: Optional[str] = None
@@ -90,15 +96,5 @@ class AnalysisResponse(BaseModel):
     jd_skills: list[ExtractedSkill]
     skill_gaps: list[SkillGap]
     pathway: list[PathwayPhase]
-    summary: PathwaySummary
+    summary: PathwaySummary      
     reasoning_trace: list[ReasoningStep]
-
-
-class PathwaySummary(BaseModel):
-    total_courses: int
-    total_hours: int
-    estimated_weeks: float
-    phases: int
-    top_gaps: list[str]
-    skills_already_met: list[str]
-    domain_coverage: dict[str, int] 
