@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    background: #0c0f18;
+    min-height: 100vh;
+  }
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2d3348;
+    border-radius: 3px;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-surface-800/60 backdrop-blur-xl border border-surface-700/40 rounded-2xl;
+  }
+  .glass-card-hover {
+    @apply glass-card transition-all duration-300 hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5;
+  }
+  .btn-primary {
+    @apply px-6 py-3 bg-brand-600 text-white font-display font-semibold rounded-xl
+           transition-all duration-200 hover:bg-brand-500 hover:shadow-lg hover:shadow-brand-600/25
+           active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-brand-600;
+  }
+  .btn-secondary {
+    @apply px-5 py-2.5 bg-surface-700/60 text-surface-200 font-display font-medium rounded-xl border border-surface-600/40
+           transition-all duration-200 hover:bg-surface-700 hover:border-surface-500/40;
+  }
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium font-mono;
+  }
+  .badge-critical { @apply badge bg-accent-red/15 text-accent-red border border-accent-red/20; }
+  .badge-high     { @apply badge bg-accent-amber/15 text-accent-amber border border-accent-amber/20; }
+  .badge-medium   { @apply badge bg-brand-500/15 text-brand-300 border border-brand-500/20; }
+  .badge-low      { @apply badge bg-accent-green/15 text-accent-green border border-accent-green/20; }
+  .badge-met      { @apply badge bg-accent-green/15 text-accent-green border border-accent-green/20; }
+
+  .upload-zone {
+    @apply relative flex flex-col items-center justify-center p-8 rounded-2xl
+           border-2 border-dashed border-surface-600/50 bg-surface-800/30
+           transition-all duration-300 cursor-pointer
+           hover:border-brand-500/50 hover:bg-surface-800/50;
+  }
+  .upload-zone.active {
+    @apply border-brand-400 bg-brand-500/10;
+  }
+}
