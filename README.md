@@ -1,14 +1,38 @@
 # SkillForge — Adaptive Learning Engine
 
+![Python](https://img.shields.io/badge/Python-3.11-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.104-green)
+![React](https://img.shields.io/badge/React-18-61DAFB)
+![Docker](https://img.shields.io/badge/Docker-Compose-2496ED)
+![Vercel](https://img.shields.io/badge/Deployed-Vercel-black)
+
 > **AI-powered skill gap analysis and personalised learning pathway generator for corporate onboarding and talent development.**
 
+## Live Demo
+
+**https://skill-forge-three-blue.vercel.app/**
+
+
 SkillForge ingests a candidate's resume and a target job description, identifies exact skill gaps using NLP and semantic similarity, and produces a phased, prerequisite-aware learning pathway grounded entirely in a curated course catalog — with zero hallucination.
+
+## Screenshots
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/4c6c352d-778e-4d07-b564-a9381318bc10" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/f2734f5e-7ba0-469e-96b6-1b6e7b31e0a8" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/76ed0242-59b8-4242-94d8-0b69d4e0bd85" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/086c10b7-3804-4d08-be28-041536fe3d16" />
+
+## Video Demo
+**https://youtu.be/6DGx2sHHAZw**
 
 ---
 
 ## Table of Contents
 
+- [Live Demo](#-live-demo)
+- [Quick Start](#-quick-start)
 - [Overview](#overview)
+- [Sample Test Files](#-sample-test-files)
+- [Usage](#usage)
 - [System Architecture](#system-architecture)
 - [Features](#features)
 - [Tech Stack](#tech-stack)
@@ -23,6 +47,18 @@ SkillForge ingests a candidate's resume and a target job description, identifies
 - [Configuration](#configuration)
 - [Course Catalog](#course-catalog)
   
+
+---
+
+## Quick Start
+
+Get started in under a minute:
+
+1. Open the **Live Demo**.
+2. Upload a sample resume from `sample_resumes/`.
+3. Upload a sample job description from `sample_jds/`.
+4. Click **Analyze**.
+5. Explore the extracted skills, skill gaps, adaptive learning pathway and reasoning trace.
 
 ---
 
@@ -64,6 +100,8 @@ Traditional corporate training is one-size-fits-all. SkillForge solves this by:
 | **Phased output** | Topological sort → Foundation / Core Development / Advanced / Capstone phases |
 | **Reasoning trace** | Every pipeline step logged with data payload for transparency |
 | **Cross-domain** | Technical, management, soft skills, and operational/labour roles |
+| **Live Deployment** | Hosted on Vercel for instant access |
+| **Sample Test Files** | Includes sample resumes and job descriptions for quick evaluation |
 
 ---
 
@@ -107,6 +145,8 @@ Traditional corporate training is one-size-fits-all. SkillForge solves this by:
 
 ```
 skillforge/
+├── sample_resumes/      # Sample resumes
+├── sample_jds/          # Sample job descriptions
 ├── backend/
 │   ├── app/
 │   │   ├── api/
@@ -448,8 +488,6 @@ cp .env .env.local   # edit if needed
 uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-API available at: `http://localhost:8000`  
-Interactive docs: `http://localhost:8000/docs`
 
 #### Frontend
 
@@ -553,6 +591,45 @@ At least one of `resume_file`/`resume_text` or `jd_file`/`jd_text` must be provi
 
 ---
 
+##  Sample Test Files
+
+The repository includes ready-to-use test documents.
+
+```
+sample_resumes/
+sample_jds/
+```
+
+Use these files to quickly evaluate:
+
+- Resume parsing
+- Job description parsing
+- Skill extraction
+- Skill gap analysis
+- Adaptive learning pathway generation
+- Reasoning trace visualization
+
+You can also upload your own PDF, DOCX or TXT resumes and job descriptions.
+
+---
+
+## Usage
+
+SkillForge supports two input methods:
+
+- Upload Resume + Job Description files
+- Paste resume and JD text directly
+
+After clicking **Analyze**, the application generates:
+
+- Extracted Skills
+- Skill Gap Analysis
+- Priority Ranking
+- Personalized Learning Pathway
+- Complete AI Reasoning Trace
+
+---
+
 ## Running Tests
 
 ```bash
@@ -636,10 +713,21 @@ Add the entry under the appropriate category key. The prerequisite graph and TF-
 
 ---
 
+## Future Enhancements
+
+- Resume scoring against multiple job descriptions
+- Export learning pathways as PDF
+- User authentication
+- Learning progress tracking
+- LMS integration
+- LLM-powered course recommendations
+- Multi-language resume support
+
+---
+
 ## Acknowledgements
 
 Built with FastAPI, spaCy, sentence-transformers, NetworkX, React, and Tailwind CSS.
 
 ---
 
-*SkillForge — Made by Team DuoTech*
